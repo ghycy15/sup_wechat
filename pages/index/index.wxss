@@ -8,7 +8,7 @@
 .logo {
   width: 128rpx;
   height: 128rpx;
-  margin: 20rpx;
+  margin-bottom: 20rpx;
   border-radius: 50%;
 }
 
@@ -21,12 +21,10 @@
 }
 
 .dish-pic {
-  height: 450rpx;
   text-align: center;
 }
 
 .dish-des {
-  height: 100rpx;
   text-align: center;
   word-break: break-all;
   margin: 20rpx 20rpx 20rpx 20rpx;
@@ -37,4 +35,23 @@
   height: 60rpx;
   text-align: center;
   word-break: break-all;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details-button {
+  margin: 20rpx 20rpx 20rpx 20rpx;
+}
+
+.next-button {
+  margin: 20rpx 20rpx 20rpx 20rpx;
+}
+
+.copy-right {
+  font-size:20rpx;
+  color: lightgray;
 }

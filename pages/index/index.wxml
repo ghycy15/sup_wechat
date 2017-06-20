@@ -1,10 +1,21 @@
 <!--index.wxml-->
-<view class="container">
+<scroll-view class="container">
   <view  bindtap="bindViewTap" class="userinfo">
     <image class="logo" src="../../res/logo.png" background-size="cover"></image>
-    <text class="userinfo-nickname">为{{userInfo.nickName}}精心打造</text>
   </view>
-  <text class="dish-title">{{dishTitle}}</text>
-  <image class="dish-pic" src="{{dishPic}}" mode="aspectFill"/>
-  <text class="dish-des">{{dishDes}}</text>
-</view>
+  <view class="userinfo">
+    <text class="dish-title">{{dishTitle}}</text>
+    <image class="dish-pic" src="{{dishPic}}" mode="aspectFill"/>
+    <text class="dish-des">{{dishDes}}</text>
+  </view>
+  <view class="actionbuttons">
+    <navigator url="../dishDetails/dishDetails" open-type="navigateTo" hover-class="navigator-hover">
+      <button class="details-button" bindtap="goDetails">就是这个！查看做法</button>
+    </navigator>
+    <button class="next-button" bindtap="nextDish">不喜欢？下一个！</button>  
+  </view>
+  <view class="userinfo">
+    <text class="copy-right">数据来源 juhe.cn</text>
+    <text class="copy-right">copyright 2011- LCF</text>
+  </view>
+</scroll-view>

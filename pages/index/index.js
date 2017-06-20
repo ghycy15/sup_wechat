@@ -2,38 +2,17 @@
 //获取应用实例
 var app = getApp()
 Page({
+  currentDish: 0,
+  cachedDishes: {},
   data: {
     motto: 'Hello World',
     userInfo: {},
-    currentDish: {},
-    cachedDishes: {},
     dishDes: '',
     dishTitle: '',
   },
-  
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    console.log('onLoad')
+  requestDish: function() {
     var that = this
-    wx.showLoading({
-      title: '加载中',
-    })
-
-    setTimeout(function () {
-      wx.hideLoading()
-    }, 2000)
-
-    app.getUserInfo(function(userInfo){
-      that.setData({
-        userInfo:userInfo
-      })
-    })
-
-   wx.request({
+    wx.request({
       url: 'https://apis.juhe.cn/cook/index',
       data: {
         parentid: '',
@@ -49,9 +28,11 @@ Page({
         console.log(res.data)
         const chosenOne = Math.floor(Math.random() * 10)
         const firstDish = res.data.result.data[chosenOne]
+        let allDishes = res.data.result.data
+        allDishes = that.swapDishes(allDishes, chosenOne, that.currentDish)
+        that.cachedDishes = allDishes
+        that.currentDish = chosenOne + 1,
         that.setData({
-          cachedDishes: res.data.result.data,
-          currentDish: firstDish,
           dishDes: firstDish.imtro,
           dishTitle: firstDish.title,
           dishPic: firstDish.albums[0],
@@ -62,5 +43,47 @@ Page({
         console.log('request failed')
       }
     })
+  },
+  updateDish: function() {
+    var that = this
+    const chosenOne = Math.floor(Math.random() * (10 - that.currentDish))
+    const firstDish = that.cachedDishes[chosenOne]
+    let allDishes = that.cachedDishes
+    allDishes = that.swapDishes(allDishes, chosenOne, that.currentDish)
+    that.cachedDishes = allDishes
+    that.currentDish = that.currentDish + 1,
+    that.setData({
+      dishDes: firstDish.imtro,
+      dishTitle: firstDish.title,
+      dishPic: firstDish.albums[0],
+    })
+  },
+  nextDish: function() {
+    this.updateDish()
+  },
+  swapDishes: function (allDishes, chosenOne, index) {
+    const tmp = allDishes[chosenOne]
+    allDishes[chosenOne] = allDishes[index]
+    allDishes[index] = tmp
+    return allDishes
+  },
+  onLoad: function () {
+    console.log('onLoad')
+    var that = this
+    wx.showLoading({
+      title: '准备您的专属食谱',
+    })
+
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
+
+    app.getUserInfo(function(userInfo){
+      that.setData({
+        userInfo:userInfo
+      })
+    })
+
+    that.requestDish()
   }
 })
