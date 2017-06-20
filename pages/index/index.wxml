@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<view class="container">
+  <view  bindtap="bindViewTap" class="userinfo">
+    <image class="logo" src="../../res/logo.png" background-size="cover"></image>
+    <text class="userinfo-nickname">为{{userInfo.nickName}}精心打造</text>
+  </view>
+  <text class="dish-title">{{dishTitle}}</text>
+  <image class="dish-pic" src="{{dishPic}}" mode="aspectFill"/>
+  <text class="dish-des">{{dishDes}}</text>
+</view>
