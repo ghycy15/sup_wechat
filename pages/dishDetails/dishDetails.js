@@ -1,9 +1,7 @@
 //details.js
-//获取应用实例
 var app = getApp()
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     currentDish: {},
     cachedDishes: {},
@@ -14,15 +12,17 @@ Page({
     dishDetail: {},
     stepLength: '',
   },
+
+  id : 1,
   
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
-    console.log('onLoad')
+  onLoad: function (options) {
     var that = this
+    that.id = options.id
     wx.showLoading({
       title: '加载中',
     })
@@ -31,18 +31,12 @@ Page({
       wx.hideLoading()
     }, 2000)
 
-    app.getUserInfo(function(userInfo){
-      that.setData({
-        userInfo:userInfo
-      })
-    })
-
    wx.request({
-      url: 'https://apis.juhe.cn/cook/index',
+      url: 'https://apis.juhe.cn/cook/queryid',
       data: {
         parentid: '',
         dtype: '',
-        cid: '1',
+        id: that.id,
         key: '6ce3928fd610ba3b99b6003b77f0b070',
       },
       header: {
@@ -51,8 +45,7 @@ Page({
       method: "GET",
       success: function (res) {
         console.log(res.data)
-        const chosenOne = Math.floor(Math.random() * 10)
-        const firstDish = res.data.result.data[chosenOne]
+        const firstDish = res.data.result.data[0]
         const length = firstDish.steps.length
         that.setData({
           cachedDishes: res.data.result.data,
@@ -64,7 +57,6 @@ Page({
           dishBrd: firstDish.burden,
           dishDetail: firstDish.steps,
           stepLength: length,
-          //dishStep: firstDish.steps,
         })
         wx.hideLoading()
       },
