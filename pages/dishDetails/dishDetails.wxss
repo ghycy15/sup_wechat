@@ -1,1 +1,51 @@
-/* dishDetails.wxss */
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 50rpx;
+}
+
+.dish-pic {
+  height: 450rpx;
+  text-align: center;
+  margin-bottom: 50rpx;
+  margin-left: 50rpx;
+}
+
+.dish-des {
+  height: 100rpx;
+  text-align: center;
+  word-break: break-all;
+  margin: 20rpx 20rpx 20rpx 20rpx;
+}
+
+.dish-title {
+  margin: 20rpx 20rpx 20rpx 20rpx;
+  height: 60rpx;
+  text-align: center;
+  word-break: break-all;
+}
+
+.dish-details {
+  color: #aaa;
+  text-align: left;
+  margin: 10rpx 20rpx;
+}
+.step-detail {
+  margin: 0rpx 50rpx 20rpx 20rpx;
+}

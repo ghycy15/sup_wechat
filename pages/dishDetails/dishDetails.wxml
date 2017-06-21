@@ -1,2 +1,24 @@
-<!--dishDetails.wxml-->
-<text>{{id}}</text>
+<!--index.wxml-->
+<view class="container">
+  <view  bindtap="bindViewTap" class="userinfo">
+    <image class="logo" src="../../res/logo.png" background-size="cover"></image>
+    <text class="userinfo-nickname">为{{userInfo.nickName}}精心打造</text>
+  </view>
+  <text class="dish-title">{{dishTitle}}</text>
+  <text class="dish-details">原料：{{dishIng}}</text>
+  <text class="dish-details">用量：{{dishBrd}}</text>
+  <!--image class="dish-pic" src="{{dishPic}}" mode="aspectFill"/-->
+  <!--text class="dish-details">{{dishDetail.step}}</text-->
+</view>
+<block wx:for="{{dishDetail}}">
+  <view class="step-detail">{{item.step}}</view>
+  <image class="dish-pic" src="{{item.img}}" mode="aspectFill"/>
+</block>
+
+<!--block wx:for="{{dishDetail}}">
+<view class="section">
+  <scroll-view scroll-y="true" style="height: 300rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <view class="step-detail">{{item.step}}</view>
+  </scroll-view>
+</view>
+</block-->
