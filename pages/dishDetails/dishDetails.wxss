@@ -51,7 +51,6 @@
 }
 
 .dish-details {
-  color: #aaa;
   text-align: center;
   margin: 10rpx 20rpx;
 }

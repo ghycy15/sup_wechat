@@ -9,7 +9,7 @@
     <text class="dish-des">{{dishDes}}</text>
   </view>
   <view class="actionbuttons">
-    <button class="details-button" bindtap="goDetails">就是这个！查看做法</button>
+    <button class="details-button" bindtap="goDetails">就做这个！查看做法</button>
     <button class="next-button" bindtap="nextDish">不喜欢？下一个！</button>  
   </view>
   <view class="userinfo">

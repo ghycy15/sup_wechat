@@ -11,7 +11,7 @@ Page({
     dishDes: '',
     dishTitle: '',
   },
-  requestDish: function() {
+  requestDishes: function() {
     var that = this
     wx.request({
       url: 'https://apis.juhe.cn/cook/index',
@@ -46,6 +46,37 @@ Page({
       }
     })
   },
+  requestDish: function () {
+    var that = this
+    const chosenOne = Math.floor(Math.random() * 80400) + 1
+    wx.request({
+      url: 'https://apis.juhe.cn/cook/queryid',
+      data: {
+        parentid: '',
+        dtype: '',
+        id: chosenOne,
+        key: '6ce3928fd610ba3b99b6003b77f0b070',
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        console.log(res)
+        const firstDish = res.data.result.data[0]
+        that.currentDish = firstDish
+        that.setData({
+          dishDes: firstDish.imtro,
+          dishTitle: firstDish.title,
+          dishPic: firstDish.albums[0],
+        })
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        console.log('request failed')
+      }
+    })
+  },
   goDetails: function () {
     wx.navigateTo({ url: '../dishDetails/dishDetails?id=' + this.currentDish.id})
   },
@@ -65,7 +96,7 @@ Page({
     })
   },
   nextDish: function() {
-    this.updateDish()
+    this.requestDish()
   },
   swapDishes: function (allDishes, chosenOne, index) {
     const tmp = allDishes[chosenOne]
@@ -74,7 +105,6 @@ Page({
     return allDishes
   },
   onLoad: function () {
-    console.log('onLoad')
     var that = this
     wx.showLoading({
       title: '准备您的专属食谱',
