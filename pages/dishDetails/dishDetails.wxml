@@ -1,2 +1,2 @@
 <!--dishDetails.wxml-->
-<text>dishDetails.wxml</text>
+<text>{{id}}</text>

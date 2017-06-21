@@ -2,8 +2,9 @@
 //获取应用实例
 var app = getApp()
 Page({
-  currentDish: 0,
+  currentDishIndex: 0,
   cachedDishes: {},
+  currentDish: {},
   data: {
     motto: 'Hello World',
     userInfo: {},
@@ -29,9 +30,10 @@ Page({
         const chosenOne = Math.floor(Math.random() * 10)
         const firstDish = res.data.result.data[chosenOne]
         let allDishes = res.data.result.data
-        allDishes = that.swapDishes(allDishes, chosenOne, that.currentDish)
+        allDishes = that.swapDishes(allDishes, chosenOne, that.currentDishIndex)
         that.cachedDishes = allDishes
-        that.currentDish = chosenOne + 1,
+        that.currentDishIndex = chosenOne + 1
+        that.currentDish = firstDish
         that.setData({
           dishDes: firstDish.imtro,
           dishTitle: firstDish.title,
@@ -44,14 +46,18 @@ Page({
       }
     })
   },
+  goDetails: function () {
+    wx.navigateTo({ url: '../dishDetails/dishDetails?id=' + this.currentDish.id})
+  },
   updateDish: function() {
     var that = this
-    const chosenOne = Math.floor(Math.random() * (10 - that.currentDish))
+    const chosenOne = Math.floor(Math.random() * (10 - that.currentDishIndex))
     const firstDish = that.cachedDishes[chosenOne]
     let allDishes = that.cachedDishes
-    allDishes = that.swapDishes(allDishes, chosenOne, that.currentDish)
+    allDishes = that.swapDishes(allDishes, chosenOne, that.currentDishIndex)
     that.cachedDishes = allDishes
-    that.currentDish = that.currentDish + 1,
+    that.currentDishIndex = that.currentDishIndex + 1
+    that.currentDish = firstDish
     that.setData({
       dishDes: firstDish.imtro,
       dishTitle: firstDish.title,
